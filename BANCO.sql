@@ -1,3 +1,60 @@
+o que é um banco de dados? 
+	É um conjunto de arquivos integrados e compartilhados que atende a um ou vários sistemas;
+
+O que é um SGBD?
+	É um software que permite op acesso ao banco de dados
+	Possibilita a criação do banco de Dados e também a manipulação de dados;
+
+O que é Modelo de Dados?
+	É a representação que contém a descrição formal dos dados que estão armazenados no banco de dados;
+	Informa as características dos dados;
+	Não informa os dados armazenados no SGBD;
+
+Qual a técnica  mais utilizada no modelo Conceitual?
+	Modelo Entidade-Relacionamento
+	Ele é representado  através do Diagrama Entidade-Relacionamento(DER);
+
+O que são ENTIDADES no Modelo Entidade-Relacionamento?
+	São as "coisas" do negócio e representam os dados genéricos do sistema;
+
+O que são RELACIONAMENTOS no modelo Entidade-Relacionamento?
+	são associações que existem entre as entidades;
+
+O que é INSTÂNCIA ou OCORRÊNCIA no modelo Entidade-Relacionamento?
+	É cada elemento de uma entidade;
+
+-- ENTIDADE    = nome da tabela;
+-- ATRIBUTOS   = atributos
+-- OCORRÊNCIAS = dados salvos no banco de dados
+
+O que é ENTIDADE FORTE e ENTIDADE FRACA?
+	Entidade forte é a entidade que existe independente das outras entidades;
+	Entidade fraca é a entidade que só existe se existir outra entidade relacionada;
+	Ex: FORTE = Cliente e FRACA = Sócio ou Dependente
+
+O que são cardinalidades no modelo Entidade-Relacionamento?
+	É o numero (mínimo e máximo) de ocorrências de uma entidade que podem estar associadas
+		a uma ocorrência de entidade, através de um relacionamento;
+
+O que é Relacionamento Um para Um 1:1?
+	Quando uma ocorrência da entidade A relaciona-se com somente uma ocorrência da entidade B e vice-versa.
+
+O que é Relacionamento Um para Muitos 1:N?
+	Quando uma ocorrência da entidade A relaciona-se com muitas ocorrência da entidade B,mas cada ocorrência
+		da entidade B somente pode estar relacionada a uma ocorrência da entidade A.
+
+O que é Relacionamento de Muitos para Muitos N:N?
+	Quando uma ocorrência da entidade A relaciona-se com muitas ocorrência da entidade B e vice-versa.
+
+Qual o modelo lógico mais utilizado?
+	Relacional;
+
+-- Modelo Lógico usa a linguagem Gráfica
+-- Modelo Físico usa a linguagem Textual
+
+
+
+
 DROP DATABASE IF EXISTS DML;
 
 CREATE DATABASE DML;
