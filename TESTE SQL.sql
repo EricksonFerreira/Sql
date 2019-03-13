@@ -1,60 +1,3 @@
-o que é um banco de dados? 
-	É um conjunto de arquivos integrados e compartilhados que atende a um ou vários sistemas;
-
-O que é um SGBD?
-	É um software que permite o acesso ao banco de dados
-	Possibilita a criação do banco de Dados e também a manipulação de dados;
-
-O que é Modelo de Dados?
-	É a representação que contém a descrição formal dos dados que estão armazenados no banco de dados;
-	Informa as características dos dados;
-	Não informa os dados armazenados no SGBD;
-
-Qual a técnica  mais utilizada no modelo Conceitual?
-	Modelo Entidade-Relacionamento
-	Ele é representado  através do Diagrama Entidade-Relacionamento(DER);
-
-O que são ENTIDADES no Modelo Entidade-Relacionamento?
-	São as "coisas" do negócio e representam os dados genéricos do sistema;
-
-O que são RELACIONAMENTOS no modelo Entidade-Relacionamento?
-	são associações que existem entre as entidades;
-
-O que é INSTÂNCIA ou OCORRÊNCIA no modelo Entidade-Relacionamento?
-	É cada elemento de uma entidade;
-
--- ENTIDADE    = nome da tabela;
--- ATRIBUTOS   = atributos
--- OCORRÊNCIAS = dados salvos no banco de dados
-
-O que é ENTIDADE FORTE e ENTIDADE FRACA?
-	Entidade forte é a entidade que existe independente das outras entidades;
-	Entidade fraca é a entidade que só existe se existir outra entidade relacionada;
-	Ex: FORTE = Cliente e FRACA = Sócio ou Dependente
-
-O que são cardinalidades no modelo Entidade-Relacionamento?
-	É o numero (mínimo e máximo) de ocorrências de uma entidade que podem estar associadas
-		a uma ocorrência de entidade, através de um relacionamento;
-
-O que é Relacionamento Um para Um 1:1?
-	Quando uma ocorrência da entidade A relaciona-se com somente uma ocorrência da entidade B e vice-versa.
-
-O que é Relacionamento Um para Muitos 1:N?
-	Quando uma ocorrência da entidade A relaciona-se com muitas ocorrência da entidade B,mas cada ocorrência
-		da entidade B somente pode estar relacionada a uma ocorrência da entidade A.
-
-O que é Relacionamento de Muitos para Muitos N:N?
-	Quando uma ocorrência da entidade A relaciona-se com muitas ocorrência da entidade B e vice-versa.
-
-Qual o modelo lógico mais utilizado?
-	Relacional;
-
--- Modelo Lógico usa a linguagem Gráfica
--- Modelo Físico usa a linguagem Textual
-
-
-
-
 DROP DATABASE IF EXISTS DML;
 
 CREATE DATABASE DML;
@@ -214,7 +157,7 @@ SELECT columns FROM table1 INNER JOIN table2 ON table1.column = table2.column;
 -- EX: SELECT nome FROM alunos INNER JOIN timeFutebol ON alunos.nome = timeFutebol.nomeAlunos;
 
 --pegando dados da tabela1 e da tabela 2 quando a coluna da tabela1 for igual a coluna da tabela2
-SELECT table1.column1, table1.column2, table3.columns 
+SELECT table1.column1, table1.column2, table2.columns 
 	FROM table1 INNER JOIN table2 
 		ON table1.column = table2.column;
 -- EX: 	SELECT alunos.nome, alunos.idade, timeFutebol.posicao 
@@ -228,3 +171,63 @@ SELECT A.column1, B.column2, table3.columns
 -- EX: 	SELECT Jogadores.nome, Jogadores.idade, Team.posicao 
 --			FROM alunos as 'Jogadores' INNER JOIN timeFutebol as 'Team'
 --				ON Jogadores.nome = Team.nomeAlunos;
+
+
+-- ATV 
+-- https://qacademico.ifpe.edu.br/uploads/MATERIAIS_AULAS/327229-EXER.FIX.BD.SQL.DML.JOINS.pdf
+-- 1
+SELECT SETOR.SET_NOME AS 'NOME DO SETOR', SETOR.SET_SIGLA AS 'SIGLA DO SETOR', FUNCIONARIO.FUN_NOME AS 'NOME DO CHEFE' 
+FROM scp_setores AS SETOR 
+INNER JOIN scp_funcionarios AS FUNCIONARIO
+ON SETOR.SET_SIGLA = FUNCIONARIO.FUN_SET_SIGLA 
+ORDER BY SETOR.SET_NOME ASC;
+
+-- 2
+SELECT
+	TIPO.TIP_CODIGO AS 'CODIGO DO TIPO DO PRODUTO', 
+	TIPO.TIP_NOME AS 'NOME DO TIPO DO PRODUTO',
+	PRODUTO.PRO_NOME AS 'NOME DO PRODUTO', 
+	PRODUTO.PRO_QTDE_ESTOQUE AS 'QUANTIDADE EM ESTOQUE', 
+	PRODUTO.PRO_VALOR_VENDA AS 'PRECO DA VENDA',
+	PRODUTO.PRO_QTDE_ESTOQUE * PRODUTO.PRO_VALOR_VENDA AS 'VALOR TOTAL DE CADA PRODUTO'
+FROM
+	SCP_TIPOS_PRODUTO AS TIPO 
+INNER JOIN
+	SCP_PRODUTOS AS PRODUTO
+ON
+	TIPO.TIP_CODIGO = PRODUTO.PRO_TIP_CODIGO;
+
+--3
+SELECT
+	CONCAT(PRODUTO.PRO_QTDE_ESTOQUE,' - ' ,TIPO.TIP_NOME) AS 'NOME DO TIPO DO PRODUTO E QUANTIDADE',
+	PRODUTO.PRO_QTDE_ESTOQUE * PRODUTO.PRO_VALOR_VENDA AS 'VALOR TOTAL DE CADA PRODUTO'
+FROM
+	SCP_TIPOS_PRODUTO AS TIPO 
+INNER JOIN
+	SCP_PRODUTOS AS PRODUTO
+ON
+	TIPO.TIP_CODIGO = PRODUTO.PRO_TIP_CODIGO;
+
+--4
+SELECT
+	CIDADE.CID_NOME AS 'CIDADE',
+	COUNT(CLIENTE.CLI_CODIGO) AS 'QUANTIDADE DE CLIENTES'
+FROM
+	SCP_CLIENTES AS CLIENTE 
+INNER JOIN
+	SCP_CIDADES AS CIDADE
+ON
+	CLIENTE.CLI_CID_CODIGO = CIDADE.CID_CODIGO
+ORDER BY CIDADE.CID_NOME ASC;
+
+--5 AINDA ESTÁ COM ERROS
+
+-- SELECT
+-- 	FUNCAO.FNC_NOME AS 'NOME DA FUNCAO',
+-- 	(SELECT COUNT(*) FROM SCP_FUNCIONARIOS WHERE FUN_SEXO = 'M') AS 'FUNCIONARIOS DO SEXO FEMININO'
+-- FROM
+-- 	SCP_FUNCIONARIOS AS FUNCIONARIO 
+-- INNER JOIN
+-- 	SCP_FUNCOES AS FUNCAO
+-- ON
+-- 	FUNCAO.FNC_CODIGO = FUNCIONARIO.FUN_FNC_CODIGO;
